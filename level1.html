@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #todo-container {
+            width: 300px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #todo-header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #todo-list {
+            padding: 20px;
+        }
+
+        #add-todo {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        #todo-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        #add-button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <title>To-Do List</title>
+</head>
+<body>
+    <div id="todo-container">
+        <div id="todo-header">
+            <h2>To-Do List</h2>
+        </div>
+        <div id="todo-list"></div>
+        <div id="add-todo">
+            <input type="text" id="todo-input" placeholder="Add a new task">
+            <button id="add-button">Add</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const todoList = document.getElementById("todo-list");
+            const addButton = document.getElementById("add-button");
+            const inputField = document.getElementById("todo-input");
+
+            addButton.addEventListener("click", function () {
+                const task = inputField.value.trim();
+                if (task !== "") {
+                    addTodoItem(task);
+                    inputField.value = "";
+                }
+            });
+
+            function addTodoItem(task) {
+                const todoItem = document.createElement("div");
+                todoItem.classList.add("todo-item");
+
+                const taskText = document.createElement("span");
+                taskText.textContent = task;
+
+                const deleteButton = document.createElement("button");
+                deleteButton.classList.add("delete-button");
+                deleteButton.textContent = "Delete";
+                deleteButton.addEventListener("click", function () {
+                    todoList.removeChild(todoItem);
+                });
+
+                todoItem.appendChild(taskText);
+                todoItem.appendChild(deleteButton);
+
+                todoList.appendChild(todoItem);
+            }
+        });
+    </script>
+</body>
+</html>
